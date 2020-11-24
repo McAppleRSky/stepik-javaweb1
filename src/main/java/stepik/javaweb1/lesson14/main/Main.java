@@ -3,6 +3,8 @@ package stepik.javaweb1.lesson14.main;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.util.log.Log;
+import org.eclipse.jetty.util.log.Logger;
 import stepik.javaweb1.lesson14.servlets.AllRequestsServlet;
 import stepik.javaweb1.lesson14.servlets.MirrorRequestsServlet;
 
@@ -14,6 +16,9 @@ import stepik.javaweb1.lesson14.servlets.MirrorRequestsServlet;
  *         Описание курса и лицензия: https://github.com/vitaly-chibrikov/stepic_java_webserver
  */
 public class Main {
+
+    private static final Logger LOG = Log.getLogger(Main.class);
+
     public static void main(String[] args) throws Exception {
         //AllRequestsServlet allRequestsServlet = new AllRequestsServlet();
 
@@ -23,8 +28,8 @@ public class Main {
 
         Server server = new Server(8080);
         server.setHandler(context);
-
         server.start();
+        LOG.info("Server started");
         server.join();
     }
 }
