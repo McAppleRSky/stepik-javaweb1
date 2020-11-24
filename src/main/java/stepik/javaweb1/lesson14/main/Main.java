@@ -1,4 +1,4 @@
-package main;
+package stepik.javaweb1.lesson14.main;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;

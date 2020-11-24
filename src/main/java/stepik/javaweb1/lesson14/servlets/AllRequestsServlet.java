@@ -1,4 +1,4 @@
-package servlets;
+package stepik.javaweb1.lesson14.servlets;
 
 import templater.PageGenerator;
 
