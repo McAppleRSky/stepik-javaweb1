@@ -1,6 +1,6 @@
 package stepik.javaweb1.lesson14.servlets;
 
-import templater.PageGenerator;
+import stepik.javaweb1.lesson14.templater.PageGenerator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

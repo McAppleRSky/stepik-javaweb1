@@ -1,4 +1,4 @@
-package templater;
+package stepik.javaweb1.lesson14.templater;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
