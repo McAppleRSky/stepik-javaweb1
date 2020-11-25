@@ -26,9 +26,11 @@ public class MirrorRequestsServlet extends HttpServlet {
                 //createPageVariablesMap(request)
                 ;
         key = request.getParameter("key");
-        pageVariables.put("key", key==null?"":key);
+        //pageVariables.put("key", key==null?"":key);
 
-        response.getWriter().println(PageGenerator.instance().getPage("greet.html", pageVariables));
+        //response.getWriter().println(PageGenerator.instance().getPage("greet.html", pageVariables));
+
+        response.getWriter().println(key);
 
         response.setContentType("text/html;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);

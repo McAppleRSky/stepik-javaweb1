@@ -17,7 +17,9 @@ import stepik.javaweb1.lesson14.servlets.MirrorRequestsServlet;
  */
 public class Main {
 
-    private static final Logger LOG = Log.getLogger(Main.class);
+    private static final String startMsg = "Server started";
+
+    //private static final Logger LOG = Log.getLogger(Main.class);
 
     public static void main(String[] args) throws Exception {
         //AllRequestsServlet allRequestsServlet = new AllRequestsServlet();
@@ -29,7 +31,9 @@ public class Main {
         Server server = new Server(8080);
         server.setHandler(context);
         server.start();
-        LOG.info("Server started");
+        //LOG.info(startMsg);
+        System.out.println(startMsg);
+
         server.join();
     }
 }
