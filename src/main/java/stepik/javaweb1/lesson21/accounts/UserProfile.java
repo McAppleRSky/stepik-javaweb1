@@ -8,6 +8,7 @@ package stepik.javaweb1.lesson21.accounts;
  *         Описание курса и лицензия: https://github.com/vitaly-chibrikov/stepic_java_webserver
  */
 public class UserProfile {
+
     private final String login;
     private final String pass;
     private final String email;
@@ -20,8 +21,8 @@ public class UserProfile {
 
     public UserProfile(String login) {
         this.login = login;
-        this.pass = login;
-        this.email = login;
+        this.pass = login.toString();
+        this.email = login.toString();
     }
 
     public String getLogin() {
