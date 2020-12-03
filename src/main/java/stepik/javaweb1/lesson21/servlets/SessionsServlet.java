@@ -18,16 +18,9 @@ import java.io.IOException;
  *         <p>
  *         Описание курса и лицензия: https://github.com/vitaly-chibrikov/stepic_java_webserver
  */
-public class SessionsServlet extends HttpServlet {
+public class SessionsServlet extends HttpServlet implements servletable{
+
     private final AccountService accountService;
-    private final String SESSION_MEMBER_ATTR = "userId" ,
-            COMMON_CONTENT_TYPE = "text/html;charset=utf-8",
-            LOGOUT_FORM = "<form align='right' name='form1' method='get' action=''><label><input name='submit2' type='submit' id='submit2' value='log out'></label></form>"
-            //,LOGOUT_FORM2 = "<form align='right' name='form1' method='DELETE' action=''><label><input name='submit2' type='submit' id='submit2' value='log out'></label></form>"
-            //LOGOUT_FORM3 = "<button data-method='DELETE'>doDelete</button>"
-                    ;
-
-
     public SessionsServlet(AccountService accountService) {
         this.accountService = accountService;
     }
@@ -36,32 +29,20 @@ public class SessionsServlet extends HttpServlet {
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String
-        //long
-        //LongId<UserProfile>
-                sessionId = //new LongId<>(
-                                            //Long.parseLong(
-                                                    session.getId()
-                                            //)
-//                                                    )
-                                                        ;
-
+        String sessionId = session.getId();
         UserProfile profile = accountService.getUserBySessionId(sessionId);
         if (profile == null) {
             response.setContentType(COMMON_CONTENT_TYPE);
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         } else {
-            Gson gson = new Gson();
-            String json = gson.toJson(profile);
+//            Gson gson = new Gson();
+//            String json = gson.toJson(profile);
             response.setContentType(COMMON_CONTENT_TYPE);
-            response.getWriter().println(LOGOUT_FORM);
-            response.getWriter().println(json);
+            //response.getWriter().println(json);
             response.setStatus(HttpServletResponse.SC_OK);
-            if (request.getParameter("submit2") != null)
-                if(request.getParameter("submit2").equals("log out")){
-                    accountService.deleteSession(sessionId);
-                    response.getWriter().println("Goodbye!");
-                }
+            accountService.deleteSession(sessionId);
+            response.getWriter().println("Goodbye!");
+            response.getWriter().println(CALL_BACK_HTEXPR);
         }
     }
 
@@ -70,7 +51,6 @@ public class SessionsServlet extends HttpServlet {
                        HttpServletResponse response) throws ServletException, IOException {
         String login = request.getParameter("login");
         String pass = request.getParameter("pass");
-        //String sessionString = request.getSession().toString();
         if (login == null || pass == null) {
             response.setContentType(COMMON_CONTENT_TYPE);
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -83,29 +63,12 @@ public class SessionsServlet extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
-
-        //accountService.addSession(request.getSession().getId(), profile);
-        //Long userId = (Long) request.getSession().getAttribute("userId");
-        //HttpSession session = request.getSession();
-        //LongId <UserProfile> userId = new LongId( (Long)session.getAttribute(SESSION_MEMBER_ATTR) );
-
-
-/*
-        UserIdGenerator userIdGenerator = new UserIdGenerator();
-        if ( userId.getId()==null ) {
-            userId = userIdGenerator.getAndIncrement();
-            session.setAttribute(SESSION_MEMBER_ATTR, userId.getId());
-        }
-*/
-        accountService.addSession(request.getSession().getId()
-                                    //(LongId<UserProfile>) session.getAttribute(SESSION_MEMBER_ATTR)
-                                    ,profile);
-
+        accountService.addSession(request.getSession().getId() ,profile);
         Gson gson = new Gson();
         String json = gson.toJson(profile);
         response.setContentType(COMMON_CONTENT_TYPE);
-        response.getWriter().println(LOGOUT_FORM);
         response.getWriter().println(json);
+        response.getWriter().println(CALL_BACK_HTEXPR);
         response.setStatus(HttpServletResponse.SC_OK);
     }
 
@@ -113,7 +76,6 @@ public class SessionsServlet extends HttpServlet {
     public void doDelete(HttpServletRequest request,
                          HttpServletResponse response) throws ServletException, IOException {
         String sessionId = request.getSession().getId();
-        //XLongId<User> sessionId = request.getSession().getId();
         UserProfile profile = accountService.getUserBySessionId(sessionId);
         if (profile == null) {
             response.setContentType(COMMON_CONTENT_TYPE);

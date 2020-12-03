@@ -21,8 +21,10 @@ public class UserProfile {
 
     public UserProfile(String login) {
         this.login = login;
-        this.pass = login.toString();
-        this.email = login.toString();
+        this.pass = login//.toString()
+                            ;
+        this.email = login//.toString()
+                            ;
     }
 
     public String getLogin() {
@@ -36,4 +38,5 @@ public class UserProfile {
     public String getEmail() {
         return email;
     }
+
 }

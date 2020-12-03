@@ -1,16 +1,83 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8"/>
-    <title>L2.1</title>
-</head>
-<body>
-<p>L2.1 example</p>
 
-<form action="/api/v1/sessions" method="POST">
-    Login: <input type="text" name="login"/>
-    Password: <input type="password" name="pass"/>
-    <input type="submit" value="Sign in">
-</form>
+<head>
+  <meta charset="UTF-8" />
+  <title>L2.1</title>
+</head>
+
+<body>
+  <p>L2.1 example</p>
+  <script type="text/javascript">
+    function doAsynMethodRequest(method, uri){
+      console.log(uri);
+      var xhr = new XMLHttpRequest();
+      xhr.open(method, uri);
+      xhr.onload = () => {
+        if (xhr.status == 200) alert(xhr.response);
+        else alert('Error!');
+      };
+      xhr.send(null);
+    }
+    function onBlurLoginUnregister(){
+      doAsynMethodRequest('DELETE', '/api/v1/users'+'?login='+document.getElementById("unregister").value);
+    }
+    function changeProfile(){
+      var pass = document.getElementById("pass").value;
+      var email = document.getElementById("email").value;
+      var suffix = "";
+      if(pass!="")suffix=suffix+'?pass='+pass;
+      if(email!="")suffix=suffix+'?email='+email;
+      console.log(suffix);
+      doAsynMethodRequest('PUT', "/api/v1/users" + suffix);
+    }
+  </script>
+  Log out
+  <form action="/api/v1/sessions" method="GET">
+    <input type="submit" value="log out">
+  </form>
+
+  <hr>
+  Log in
+  <form action="/api/v1/sessions" method="POST">
+    Login: <input type="text" name="login" />
+    Password: <input type="password" name="pass" />
+    <input type="submit" value="sign in">
+  </form>
+  <hr>
+  <hr>
+  Forms for users servlets :
+  <hr>
+  get public user profile
+  <form action="/api/v1/users" method="GET">
+    Login: <input type="text" name="login" />
+    <input type="submit" value="get_user">
+  </form>
+  <hr>
+  sign up
+  <form action="/api/v1/users" method="POST">
+    Login: <input type="text" name="login" />
+    Password: <input type="password" name="pass" />
+    Mail: <input type="email" name="email" />
+    <input type="submit" value="Sign up">
+  </form>
+  <!-- <form action="/api/v1/users" method="GET">
+    <input type="submit" value="do Get">
+  </form> -->
+  <hr>
+  change profile
+  <form action="/api/v1/users" onsubmit="changeProfile(); return false;">
+  <!-- <form action="/api/v1/users" onsubmit="changeProfile()"> -->
+    Password: <input id="pass" type="password" name="pass" />
+    Mail: <input  id="email" type="email" name="email" />
+    <input type="submit" value="Change profile">
+  </form>
+  <hr>
+  <label for="unregister">
+    unregister by login
+    <input id="unregister" type="text" name="unregister" onblur="onBlurLoginUnregister()"><button>unregister</button></label>
+  <hr>
+
 </body>
+
 </html>

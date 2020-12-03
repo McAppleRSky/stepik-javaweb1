@@ -16,9 +16,7 @@ import java.util.UUID;
 public class AccountService {
 
     private final Map <String, UserProfile> loginToProfile;
-    private final Map <String
-                            //LongId<UserProfile>
-                                    ,UserProfile> sessionIdToProfile;
+    private final Map <String ,UserProfile> sessionIdToProfile;
 
     public AccountService() {
         loginToProfile = new HashMap<>();
@@ -33,34 +31,20 @@ public class AccountService {
         return loginToProfile.get(login);
     }
 
-    public UserProfile getUserBySessionId(String
-                                          //LongId<UserProfile>
-                                                  sessionId) {
+    public UserProfile getUserBySessionId(String sessionId) {
         return sessionIdToProfile.get(sessionId);
     }
 
-    public void addSession(String
-                           //LongId<UserProfile>
-                                   sessionId, UserProfile userProfile) {
+    public void addSession(String sessionId, UserProfile userProfile) {
         sessionIdToProfile.put(sessionId, userProfile);
     }
 
-    public void deleteSession(String
-                              //LongId<UserProfile>
-                                      sessionId) {
+    public void deleteSession(String sessionId) {
         sessionIdToProfile.remove(sessionId);
     }
 
-/*
-    HashMap<String, String> userSessionHashMap = new HashMap<>();
-
-    private String generateUUID(String userID) {
-        UUID uuID = UUID.randomUUID();
-        String sid = uuID.toString();
-        userSessionHashMap = new HashMap<String, String>();
-        userSessionHashMap.put(userID, sid);
-        return sid;
+    public void deleteUserUnregister(String login) {
+        loginToProfile.remove(login);
     }
-*/
 
 }
