@@ -1,1 +1,1 @@
-java -jar tester.jar hello
+java -jar tester.jar

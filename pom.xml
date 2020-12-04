@@ -31,7 +31,7 @@
                     <appendAssemblyId>false</appendAssemblyId>
                     <archive>
                         <manifest>
-                            <mainClass>stepik.javaweb1.lesson14.main.Main</mainClass>
+                            <mainClass>stepik.javaweb1.lesson21.main.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
